@@ -1922,6 +1922,9 @@
     <ClCompile Include="MGRDrawNode.cpp">
       <Filter>2d</Filter>
     </ClCompile>
+    <ClCompile Include="MGRSprite.cpp">
+      <Filter>2d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\physics\CCPhysicsBody.h">
@@ -3751,6 +3754,9 @@
       <Filter>cocostudio\components</Filter>
     </ClInclude>
     <ClInclude Include="MGRDrawNode.h">
+      <Filter>2d</Filter>
+    </ClInclude>
+    <ClInclude Include="MGRSprite.h">
       <Filter>2d</Filter>
     </ClInclude>
   </ItemGroup>
