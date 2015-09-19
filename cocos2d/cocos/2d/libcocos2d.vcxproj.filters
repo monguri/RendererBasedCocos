@@ -1919,6 +1919,9 @@
     <ClCompile Include="..\editor-support\cocostudio\CCComExtensionData.cpp">
       <Filter>cocostudio\components</Filter>
     </ClCompile>
+    <ClCompile Include="MGRDrawNode.cpp">
+      <Filter>2d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\physics\CCPhysicsBody.h">
@@ -3746,6 +3749,9 @@
     </ClInclude>
     <ClInclude Include="..\editor-support\cocostudio\CCComExtensionData.h">
       <Filter>cocostudio\components</Filter>
+    </ClInclude>
+    <ClInclude Include="MGRDrawNode.h">
+      <Filter>2d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
