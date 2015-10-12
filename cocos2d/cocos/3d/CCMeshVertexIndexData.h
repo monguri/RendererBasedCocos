@@ -93,6 +93,7 @@ protected:
     
     friend class MeshVertexData;
     friend class Sprite3D;
+    friend class MGRSprite3D;
 };
 
 /**

@@ -57,6 +57,7 @@ class Pass;
 class CC_DLL Mesh : public Ref
 {
     friend class Sprite3D;
+    friend class MGRSprite3D;
 public:
     typedef std::vector<unsigned short> IndexArray;
     /**create mesh from positions, normals, and so on, sigle SubMesh*/
