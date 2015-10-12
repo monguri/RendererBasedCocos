@@ -1928,6 +1928,9 @@
     <ClCompile Include="..\3d\MGRSprite3D.cpp">
       <Filter>3d</Filter>
     </ClCompile>
+    <ClCompile Include="..\3d\MGRAnimate3D.cpp">
+      <Filter>3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\physics\CCPhysicsBody.h">
@@ -3763,6 +3766,9 @@
       <Filter>2d</Filter>
     </ClInclude>
     <ClInclude Include="..\3d\MGRSprite3D.h">
+      <Filter>3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3d\MGRAnimate3D.h">
       <Filter>3d</Filter>
     </ClInclude>
   </ItemGroup>

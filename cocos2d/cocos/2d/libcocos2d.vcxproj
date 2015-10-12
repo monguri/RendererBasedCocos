@@ -397,6 +397,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\release-lib\*.*
     <ClCompile Include="..\3d\CCSprite3DMaterial.cpp" />
     <ClCompile Include="..\3d\CCTerrain.cpp" />
     <ClCompile Include="..\3d\CCTextureCube.cpp" />
+    <ClCompile Include="..\3d\MGRAnimate3D.cpp" />
     <ClCompile Include="..\3d\MGRSprite3D.cpp" />
     <ClCompile Include="..\audio\AudioEngine.cpp" />
     <ClCompile Include="..\audio\win32\AudioCache.cpp" />
@@ -963,6 +964,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\release-lib\*.*
     <ClInclude Include="..\3d\CCTerrain.h" />
     <ClInclude Include="..\3d\CCTextureCube.h" />
     <ClInclude Include="..\3d\cocos3d.h" />
+    <ClInclude Include="..\3d\MGRAnimate3D.h" />
     <ClInclude Include="..\3d\MGRSprite3D.h" />
     <ClInclude Include="..\audio\include\AudioEngine.h" />
     <ClInclude Include="..\audio\include\Export.h" />

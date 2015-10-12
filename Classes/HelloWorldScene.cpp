@@ -211,8 +211,8 @@ bool HelloWorld::init()
     boss->setPosition(Vec2(s.width * 3 / 4, s.height * 3 / 4));
     addChild(boss);
 
-    auto orc = MGRSprite3D::create("ReskinGirl.c3b");
-    //auto orc = Sprite3D::create("ReskinGirl.c3b");
+    //auto orc = MGRSprite3D::create("ReskinGirl.c3b");
+    auto orc = Sprite3D::create("ReskinGirl.c3b");
     orc->setScale(6.0f);
     //orc->setRotation3D(Vec3(0, 180, 0));
     orc->setPosition(Vec2(s.width / 4, s.height / 4));
