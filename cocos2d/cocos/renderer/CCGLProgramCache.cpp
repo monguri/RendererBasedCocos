@@ -37,6 +37,7 @@ NS_CC_BEGIN
 enum {
     kShaderType_PositionTextureColor,
     kShaderType_PositionTextureColor_noMVP,
+    kShaderType_PositionTextureColorBlur_noMVP,
     kShaderType_PositionTextureColorAlphaTest,
     kShaderType_PositionTextureColorAlphaTestNoMV,
     kShaderType_PositionColor,
@@ -129,6 +130,11 @@ void GLProgramCache::loadDefaultGLPrograms()
     p = new (std::nothrow) GLProgram();
     loadDefaultGLProgram(p, kShaderType_PositionTextureColor_noMVP);
     _programs.insert( std::make_pair( GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP, p ) );
+
+    // Position Texture Color Blur without MVP shader
+    p = new (std::nothrow) GLProgram();
+    loadDefaultGLProgram(p, kShaderType_PositionTextureColorBlur_noMVP);
+    _programs.insert( std::make_pair( GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_BLUR_NO_MVP, p ) );
 
     // Position Texture Color alpha test
     p = new (std::nothrow) GLProgram();
@@ -272,6 +278,11 @@ void GLProgramCache::reloadDefaultGLPrograms()
     p->reset();
     loadDefaultGLProgram(p, kShaderType_PositionTextureColor_noMVP);
 
+    // Position Texture Color Blur without MVP shader
+    p = getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_BLUR_NO_MVP);
+    p->reset();
+    loadDefaultGLProgram(p, kShaderType_PositionTextureColorBlur_noMVP);
+
     // Position Texture Color alpha test
     p = getGLProgram(GLProgram::SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST);
     p->reset();
@@ -403,6 +414,9 @@ void GLProgramCache::loadDefaultGLProgram(GLProgram *p, int type)
             break;
         case kShaderType_PositionTextureColor_noMVP:
             p->initWithByteArrays(ccPositionTextureColor_noMVP_vert, ccPositionTextureColor_noMVP_frag);
+            break;
+        case kShaderType_PositionTextureColorBlur_noMVP:
+            p->initWithByteArrays(ccPositionTextureColorBlur_noMVP_vert, ccPositionTextureColorBlur_noMVP_frag);
             break;
         case kShaderType_PositionTextureColorAlphaTest:
             p->initWithByteArrays(ccPositionTextureColor_vert, ccPositionTextureColorAlphaTest_frag);

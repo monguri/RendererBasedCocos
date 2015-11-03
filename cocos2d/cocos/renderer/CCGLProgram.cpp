@@ -62,6 +62,7 @@ NS_CC_BEGIN
 
 const char* GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR = "ShaderPositionTextureColor";
 const char* GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP = "ShaderPositionTextureColor_noMVP";
+const char* GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_BLUR_NO_MVP = "ShaderPositionTextureColorBlur_noMVP";
 const char* GLProgram::SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST = "ShaderPositionTextureColorAlphaTest";
 const char* GLProgram::SHADER_NAME_POSITION_TEXTURE_ALPHA_TEST_NO_MV = "ShaderPositionTextureColorAlphaTest_NoMV";
 const char* GLProgram::SHADER_NAME_POSITION_COLOR = "ShaderPositionColor";

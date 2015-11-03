@@ -58,6 +58,9 @@ extern CC_DLL const GLchar * ccPositionTextureColor_vert;
 extern CC_DLL const GLchar * ccPositionTextureColor_noMVP_frag;
 extern CC_DLL const GLchar * ccPositionTextureColor_noMVP_vert;
 
+extern CC_DLL const GLchar * ccPositionTextureColorBlur_noMVP_frag;
+extern CC_DLL const GLchar * ccPositionTextureColorBlur_noMVP_vert;
+
 extern CC_DLL const GLchar * ccPositionTextureColorAlphaTest_frag;
 
 extern CC_DLL const GLchar * ccPositionTexture_uColor_frag;

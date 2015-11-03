@@ -2,9 +2,13 @@
 #include "VisibleRect.h"
 #include "2d/MGRDrawNode.h"
 #include "2d/MGRSprite.h"
+#include "2d/MGRBlurSprite.h"
 #include "3d/MGRSprite3D.h"
+#include "ui/UISlider.h"
 
 USING_NS_CC;
+using namespace cocos2d::ui;
+
 
 Scene* HelloWorld::createScene()
 {
@@ -67,14 +71,33 @@ bool HelloWorld::init()
     //   // add the label as a child to this layer
     //   this->addChild(label, 1);
 
-    //   // add "HelloWorld" splash screen"
-    //   auto sprite = Sprite::create("HelloWorld.png");
+       // add "HelloWorld" splash screen"
+       auto sprite = MGRBlurSprite::create("HelloWorld.png");
 
-    //   // position the sprite on the center of the screen
-    //   sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+       // position the sprite on the center of the screen
+       sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 
-    //   // add the sprite as a child to this layer
-    //   this->addChild(sprite, 0);
+       // add the sprite as a child to this layer
+       this->addChild(sprite, 0);
+
+       // add "HelloWorld" splash screen"
+       auto slider = Slider::create();
+       slider->loadBarTexture("sliderTrack.png");
+       slider->loadSlidBallTextures("sliderThumb.png", "sliderThumb.png", "");
+       slider->loadProgressBarTexture("sliderProgress.png");
+       slider->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/6 + origin.y));
+       slider->addEventListener([=](Ref* sender, Slider::EventType type){
+           if (type == Slider::EventType::ON_PERCENTAGE_CHANGED)
+           {
+               Slider* slider = dynamic_cast<Slider*>(sender);
+               int percent = slider->getPercent();
+               sprite->setUrate((float)percent / 100.0f);
+           }
+       });
+
+       this->addChild(slider);
+
+
 
     //// cpp-testからCCDrawPrimitiveTestをもってきた
     //auto s = Director::getInstance()->getWinSize();
@@ -205,26 +228,26 @@ bool HelloWorld::init()
     // なぜかboss.c3bとReskinGirl.c3b以外のc3bファイルは真っ赤に表示される。原因調査中。
     //auto boss = Sprite3D::create("boss1.obj");
     //boss->setTexture("boss.png");
-    auto boss = MGRSprite3D::create("boss.c3b");
+    //auto boss = MGRSprite3D::create("orc.c3b");
     //auto boss = Sprite3D::create("boss.c3b");
-    boss->setScale(6.0f);
-    boss->setPosition(Vec2(s.width * 3 / 4, s.height * 3 / 4));
-    addChild(boss);
+    //boss->setScale(6.0f);
+    //boss->setPosition(Vec2(s.width * 3 / 4, s.height * 3 / 4));
+    //addChild(boss);
 
-    //auto orc = MGRSprite3D::create("ReskinGirl.c3b");
-    auto orc = Sprite3D::create("ReskinGirl.c3b");
-    orc->setScale(6.0f);
-    //orc->setRotation3D(Vec3(0, 180, 0));
-    orc->setPosition(Vec2(s.width / 4, s.height / 4));
-    addChild(orc);
+    ////auto orc = MGRSprite3D::create("ReskinGirl.c3b");
+    //auto orc = Sprite3D::create("ReskinGirl.c3b");
+    //orc->setScale(6.0f);
+    ////orc->setRotation3D(Vec3(0, 180, 0));
+    //orc->setPosition(Vec2(s.width / 2, s.height / 2));
+    //addChild(orc);
 
-    auto animation = Animation3D::create("ReskinGirl.c3b");
-    if (animation)
-    {
-        auto animate = Animate3D::create(animation);
+    //auto animation = Animation3D::create("ReskinGirl.c3b");
+    //if (animation)
+    //{
+    //    auto animate = Animate3D::create(animation);
 
-        orc->runAction(RepeatForever::create(animate));
-    }
+    //    orc->runAction(RepeatForever::create(animate));
+    //}
 
 
     return true;

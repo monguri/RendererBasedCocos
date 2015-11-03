@@ -731,6 +731,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\release-lib\*.*
     <ClCompile Include="CCTransitionPageTurn.cpp" />
     <ClCompile Include="CCTransitionProgress.cpp" />
     <ClCompile Include="CCTweenFunction.cpp" />
+    <ClCompile Include="MGRBlurSprite.cpp" />
     <ClCompile Include="MGRDrawNode.cpp" />
     <ClCompile Include="MGRSprite.cpp" />
   </ItemGroup>
@@ -1348,6 +1349,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\external\chipmunk\prebuilt\win32\release-lib\*.*
     <ClInclude Include="CCTransitionPageTurn.h" />
     <ClInclude Include="CCTransitionProgress.h" />
     <ClInclude Include="CCTweenFunction.h" />
+    <ClInclude Include="MGRBlurSprite.h" />
     <ClInclude Include="MGRDrawNode.h" />
     <ClInclude Include="MGRSprite.h" />
   </ItemGroup>
