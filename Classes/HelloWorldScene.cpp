@@ -2,7 +2,6 @@
 #include "VisibleRect.h"
 #include "2d/MGRDrawNode.h"
 #include "2d/MGRSprite.h"
-#include "2d/MGRBlurSprite.h"
 #include "3d/MGRSprite3D.h"
 #include "ui/UISlider.h"
 
@@ -71,31 +70,33 @@ bool HelloWorld::init()
     //   // add the label as a child to this layer
     //   this->addChild(label, 1);
 
-       // add "HelloWorld" splash screen"
-       auto sprite = MGRBlurSprite::create("HelloWorld.png");
+#if 0
+    // add "HelloWorld" splash screen"
+    auto sprite = MGRBlurSprite::create("HelloWorld.png");
 
-       // position the sprite on the center of the screen
-       sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    // position the sprite on the center of the screen
+    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 
-       // add the sprite as a child to this layer
-       this->addChild(sprite, 0);
+    // add the sprite as a child to this layer
+    this->addChild(sprite, 0);
 
-       // add "HelloWorld" splash screen"
-       auto slider = Slider::create();
-       slider->loadBarTexture("sliderTrack.png");
-       slider->loadSlidBallTextures("sliderThumb.png", "sliderThumb.png", "");
-       slider->loadProgressBarTexture("sliderProgress.png");
-       slider->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/6 + origin.y));
-       slider->addEventListener([=](Ref* sender, Slider::EventType type){
-           if (type == Slider::EventType::ON_PERCENTAGE_CHANGED)
-           {
-               Slider* slider = dynamic_cast<Slider*>(sender);
-               int percent = slider->getPercent();
-               sprite->setUrate((float)percent / 100.0f);
-           }
-       });
+    // add "HelloWorld" splash screen"
+    auto slider = Slider::create();
+    slider->loadBarTexture("sliderTrack.png");
+    slider->loadSlidBallTextures("sliderThumb.png", "sliderThumb.png", "");
+    slider->loadProgressBarTexture("sliderProgress.png");
+    slider->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/6 + origin.y));
+    slider->addEventListener([=](Ref* sender, Slider::EventType type){
+        if (type == Slider::EventType::ON_PERCENTAGE_CHANGED)
+        {
+            Slider* slider = dynamic_cast<Slider*>(sender);
+            int percent = slider->getPercent();
+            sprite->setUrate((float)percent / 100.0f);
+        }
+    });
 
-       this->addChild(slider);
+    this->addChild(slider);
+#endif
 
 
 
@@ -235,24 +236,79 @@ bool HelloWorld::init()
     //addChild(boss);
 
     ////auto orc = MGRSprite3D::create("ReskinGirl.c3b");
-    //auto orc = Sprite3D::create("ReskinGirl.c3b");
-    //orc->setScale(6.0f);
+    //_orc = Sprite3D::create("ReskinGirl.c3b");
+    //_orc->setScale(4.0f);
     ////orc->setRotation3D(Vec3(0, 180, 0));
-    //orc->setPosition(Vec2(s.width / 2, s.height / 2));
-    //addChild(orc);
+    //_orc->setPosition(Vec2(s.width / 2, s.height / 4));
+    //addChild(_orc);
 
     //auto animation = Animation3D::create("ReskinGirl.c3b");
     //if (animation)
     //{
     //    auto animate = Animate3D::create(animation);
 
-    //    orc->runAction(RepeatForever::create(animate));
+    //    _orc->runAction(RepeatForever::create(animate)); // ここでretainされている
     //}
 
+    _orc = Sprite::create("HelloWorld.png");
+    _orc->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    _orc->setScaleX(2.0f);
+    _orc->setScaleY(-2.0f); // RenderTextureの設定で上下逆になってたので
+    addChild(_orc); // addChildしないとDirectorからのupdateが呼ばれないのでアクションしない
+    RotateBy* rotate = RotateBy::create(2.0f, 360.0f);
+    RepeatForever* action = RepeatForever::create(rotate);
+    _orc->runAction(action);
+
+    _blurSprite = MGRBlurSprite::create("HelloWorld.png");
+
+    // position the sprite on the center of the screen
+    _blurSprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+
+    // add the sprite as a child to this layer
+    this->addChild(_blurSprite, 0);
+
+
+    // create a render texture, this is what we are going to draw into
+    _texture = RenderTexture::create(s.width, s.height, Texture2D::PixelFormat::RGBA8888);
+    _texture->retain();
+    _texture->setPosition(Vec2(s.width / 2, s.height / 2));
+
+
+    auto slider = Slider::create();
+    slider->loadBarTexture("sliderTrack.png");
+    slider->loadSlidBallTextures("sliderThumb.png", "sliderThumb.png", "");
+    slider->loadProgressBarTexture("sliderProgress.png");
+    slider->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/6 + origin.y));
+    slider->addEventListener([=](Ref* sender, Slider::EventType type){
+        if (type == Slider::EventType::ON_PERCENTAGE_CHANGED)
+        {
+            Slider* slider = dynamic_cast<Slider*>(sender);
+            int percent = slider->getPercent();
+            if (_blurSprite != nullptr)
+            {
+                _blurSprite->setUrate((float)percent / 100.0f);
+            }
+        }
+    });
+
+    this->addChild(slider);
 
     return true;
 }
 
+void HelloWorld::visit(Renderer *renderer, const Mat4& parentTransform, uint32_t parentFlags)
+{
+    Node::visit(renderer, parentTransform, parentFlags);
+
+    _orc->setVisible(true);
+    _texture->beginWithClear(0, 0, 0, 0, 0, 0);
+    _orc->visit();
+    _texture->end();
+    _orc->setVisible(false);
+
+    // 毎フレームテクスチャを初期化する
+    _blurSprite->setTexture(_texture->getSprite()->getTexture());
+}
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {

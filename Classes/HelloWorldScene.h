@@ -2,6 +2,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "2d/MGRBlurSprite.h"
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -17,6 +18,13 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
+
+    void visit(cocos2d::Renderer *renderer, const cocos2d::Mat4& parentTransform, uint32_t parentFlags) override;
+    
+private:
+    cocos2d::MGRBlurSprite* _blurSprite;
+    cocos2d::RenderTexture* _texture;
+    cocos2d::Node* _orc;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
